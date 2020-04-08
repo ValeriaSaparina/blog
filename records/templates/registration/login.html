@@ -1,0 +1,38 @@
+{% extends  'records/base.html' %}
+{% load records_extras %}
+{% block content %}
+    <div class="p-x-1 p-y-3" style="width: 20%; margin: 0 auto;">
+		<form class="card card-block m-x-auto bg-faded form-width form" method="post" >
+            {% csrf_token %}
+				<legend class="m-b-1 text-xs-center">Вход</legend>
+				<div class="text-xs-center">
+					<div class="text-xs-center">
+                          {% for field in form %}
+							<div class="text-xs-center">
+								<p>
+								  {{ field.label_tag }}<br>
+								  {{ field }}
+								  {% if field.help_text %}
+									<p>{{ field.help_text }}</p>
+								  {% endif %}
+								  {% for error in field.errors %}
+								  <p>{{ error }}</p>
+								  {% endfor %}
+								</p>
+							</div>
+							{% endfor %}
+					<button class="btn btn-block btn-primary" type="submit">Вход</button>
+                    </div>
+				</div>
+				<span style="text-align: center"><a href="#">Зaбыл Пароль</a></span>
+        </form>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
