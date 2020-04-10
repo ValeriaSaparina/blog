@@ -1,9 +1,15 @@
 {% extends  'records/base.html' %}
 
 {% block content %}
-<ul>
-    <li>
-        <p>{{ request.user.username }}</p>
-    </li>
-</ul>
+<div class="p-x-1 p-y-3" style="width: 20%; margin: 0 auto;">
+    <div class="text-xs-center">
+        <ul class="list-group">
+            <h5 class="list-group-item">{{ request.user.username }}</h5>
+            <li class="list-group-item">{{ request.user.email }}</li>
+            <li class="list-group-item">{{ }}</li>
+        </ul>
+    </div>
+</div>
+
+
 {% endblock %}
