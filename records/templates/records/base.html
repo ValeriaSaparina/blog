@@ -57,7 +57,7 @@
                             {{ request.user.username }}
                           </button>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{% url 'author' request.user.username %}">Профиль</a>
+                            <a class="dropdown-item" href="{% url 'author' request.user.id %}">Профиль</a>
                             <a class="dropdown-item" href="/logout">Выйти</a>
                           </div>
                         </div>

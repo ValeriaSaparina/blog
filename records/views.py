@@ -1,11 +1,10 @@
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
-
-from records.forms import RegistrationForm
-from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
-from .models import User, Post
+# from .forms import AuthorForm
+from .models import User, Post, Profile
 
 
 def users(request):
@@ -40,36 +39,27 @@ def p_details():
 
 
 def u_details(request, username):
-    return render(request, 'records/author.html')
+    user_id = request.user.id
+    info = Profile.objects.get(pk=user_id)
+    print(info)
+    return render(request, 'records/author.html', {'info': info})
 
 
-def u_edit():
-    return None
+def u_edit(request, username):
+    # if request.method == 'POST':
+    #     form = AuthorForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #     nickname = form.cleaned_data.get('nickname')
+    #     about = form.cleaned_data.get('about')
+    #     a = Profile(nickname=nickname, about=about)
+    #     a.save()
+    #     print(a.nickname)
+    # else:
+    #     form = AuthorForm()
+
+    return render(request, 'records/author_edit.html')
 
 
 def index():
     return None
-
-# # Вариант регистрации на базе класса FormView
-# class MyRegisterFormView(FormView):
-#     # Указажем какую форму мы будем использовать для регистрации наших пользователей, в нашем случае
-#     # это UserCreationForm - стандартный класс Django унаследованный
-#     form_class = UserCreationForm
-#
-#     # Ссылка, на которую будет перенаправляться пользователь в случае успешной регистрации.
-#     # В данном случае указана ссылка на страницу входа для зарегистрированных пользователей.
-#     success_url = "/login/"
-#
-#     # Шаблон, который будет использоваться при отображении представления.
-#     template_name = "records/sign in.html"
-#
-#     def form_valid(self, form):
-#         form.save()
-#         print("Success")
-#         # Функция super( тип [ , объект или тип ] )
-#         # Возвратите объект прокси, который делегирует вызовы метода родительскому или родственному классу типа .
-#         return super(MyRegisterFormView, self).form_valid(form)
-#
-#     def form_invalid(self, form):
-#         print("Don't success")
-#         return super(MyRegisterFormView, self).form_invalid(form)

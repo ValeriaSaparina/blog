@@ -14,3 +14,9 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
+
+
+class AuthorForm(forms.Form):
+    nickname = forms.CharField(label="nickname", max_length=20, default="")
+    count_posts = forms.IntegerField(label="count_posts", default=0)
+    about = forms.CharField(label="about", max_length=500, default="")
