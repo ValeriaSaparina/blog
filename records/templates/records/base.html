@@ -49,11 +49,9 @@
                     <a class="nav-link" href="#">Pricing</a>
                   </li>
                     {% if request.user.is_authenticated %}
-<!--                        <li class="nav-item" style="position:absolute;right:0">-->
-<!--                            <a class="nav-link" href="{% url 'author' request.user.username %}">{{ request.user.username }}</a>-->
-<!--                        </li>-->
                         <div class="dropdown" style="position:absolute; right: 3%">
-                          <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button class="btn btn-secondary dropdown-toggle bg-dark" type="button"
+                                  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ request.user.username }}
                           </button>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

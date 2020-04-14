@@ -25,16 +25,11 @@ app_name = 'records'
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # path('', views.index, name='index'),
-    # path('users/', views.users, name='users'),
-    # path('posts/', views.posts, name='posts'),
-    # path('accounts/reg/', views.MyRegisterFormView.as_view(), name="reg"),
-
     path('', views.main, name="main"),
     path('users/', views.users, name='users'),
     path('author/<str:username>', views.u_details, name='author'),
-    path('posts/<int:post_id>', views.p_details, name='post'),
-    path('author/<str:username>/edit', views.u_edit, name="u_edit"),
+    path('posts/<str:post_id>', views.p_details, name='post'),
+    path('edit', views.edit, name="edit"),
     path('new_post/', views.new_post, name='new_post'),
 
     path('login/', vw.LoginView.as_view(), name='login'),

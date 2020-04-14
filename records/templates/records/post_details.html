@@ -2,12 +2,13 @@
 
 {% block content %}
     <div class="post">
-        {% if post.published_date %}
+        {% if post.pub_date %}
             <div class="date">
-                {{ post.published_date }}
+                {{ post.pub_date }}
             </div>
         {% endif %}
         <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+        <p>{{ post.text}}</p>
+        <h1>{{ author.nickname }}</h1>
     </div>
 {% endblock %}
