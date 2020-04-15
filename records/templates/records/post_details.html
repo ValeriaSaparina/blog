@@ -1,14 +1,22 @@
 {% extends 'records/main.html' %}
 
 {% block content %}
-    <div class="post">
-        {% if post.pub_date %}
-            <div class="date">
-                {{ post.pub_date }}
+
+        <div class="row">
+            <div class="card" style="width: 50%; margin-left: 10%; margin-top: 1%">
+              <div class="card-body" style="box-shadow: 0 0 5px;">
+                  <small>{{ post.pub_date }}</small>
+                  <small><a href="{% url 'author' author.id%}">{{ author.nickname }}</a></small>
+                  <h1 class="card-title">{{ post.title }}</h1>
+                  <p class="card-text">{{ post.text }}</p>
+              </div>
             </div>
-        {% endif %}
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.text}}</p>
-        <h1>{{ author.nickname }}</h1>
-    </div>
+            <div class="card" style="width:20%; height: 30%; margin-left: 10%; margin-top: 1%">
+                <div class="card-body" style="box-shadow: 0 0 5px;">
+                    <h3 class="card-title" style="text-align: center">Автор</h3>
+                    <h5 class="card-title">Имя: <a href="{% url 'author' author.id%}">{{ author.nickname }}</a></h5>
+                    <p class="card-text">Количество постов: {{ author.count_posts }}</p>
+              </div>
+            </div>
+        </div>
 {% endblock %}

@@ -42,13 +42,10 @@
                   <li class="nav-item active">
                     <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
                   </li>
+                    {% if request.user.is_authenticated %}
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'new_post' %}">Добавить запись</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                  </li>
-                    {% if request.user.is_authenticated %}
                         <div class="dropdown" style="position:absolute; right: 3%">
                           <button class="btn btn-secondary dropdown-toggle bg-dark" type="button"
                                   id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,7 +58,7 @@
                         </div>
                     {% else %}
                         <li class="nav-item" style="position:absolute;right:0">
-                            <a class="nav-link" href="/login">Войти</a>
+                            <a class="nav-link" href="/login" style="color: white">Войти</a>
                         </li>
                     {% endif %}
 

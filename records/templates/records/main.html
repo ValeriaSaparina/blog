@@ -1,20 +1,26 @@
 {% extends "records/base.html" %}
 {% block content %}
-{% if data %}
-    {% for post_list, s_list in data %}
+{% if posts_list %}
+    {% for post, s_list in data %}
 
         <div class="row">
             <div class="card" style="width: 50%; margin-left: 24%; margin-top: 1%">
               <div class="card-body" style="box-shadow: 0 0 5px;">
-                <h3 class="card-title">{{ post_list.title }}</h3>
+                  <small>{{ post.pub_date }}</small>
+                  <small><a href="{% url 'author' post.profile_id.id%}">Автор</a></small>
+                <h3 class="card-title">{{ post.title }}</h3>
                 <p class="card-text">{{ s_list }}</p>
-                <a href="{% url 'post' post_list.id %}" class="btn btn-primary" style="margin-left: 80%">Читать далее ></a>
+                <a href="{% url 'post' post.id %}" class="btn btn-primary" style="margin-left: 80%">Читать далее ></a>
               </div>
           </div>
         </div>
 
     {% endfor %}
 {% else %}
-    <p>No posts are available.</p>
+            <div class="card" style="width: 50%; margin-left: 24%; margin-top: 1%">
+              <div class="card-body" style="box-shadow: 0 0 5px;">
+                <h3 class="card-title">No posts are available.</h3>
+              </div>
+          </div>
 {% endif %}
 {% endblock %}
