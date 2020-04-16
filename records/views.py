@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
-from .forms import AuthorForm, RegistrationForm
+from .forms import AuthorForm, RegistrationForm, PostEditForm
 from .forms import NewPostForm
 from .models import User, Post, Profile
 
@@ -53,10 +53,14 @@ def p_details(request, post_id):
     post = Post.objects.get(pk=post_id)
     profile_id = post.profile_id.id
     author = get_object_or_404(Profile, pk=profile_id)
+    if request.method == "POST":
+        post.likes = post.likes + 1
+        post.save()
     if profile_id == request.user.id:
         flag = True
     else:
         flag = False
+    print(post.likes)
     return render(request, 'records/post_details.html', {'post': post, 'author': author, 'flag': flag})
 
 
@@ -124,3 +128,20 @@ def edit(request):
     else:
         form = AuthorForm()
         return render(request, 'records/author_edit.html', {'info': info})
+
+
+def post_edit(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    if request.method == 'POST':
+        form = PostEditForm(request.POST)
+        if form.is_valid():
+            form.save()
+        title = form.cleaned_data.get('title')
+        text = form.cleaned_data.get('text')
+        post.title = title
+        post.text = text
+        post.save()
+        return redirect('/posts/' + str(post_id))
+    else:
+        form = PostEditForm()
+        return render(request, 'records/post_edit.html', {'form': form, 'post': post})

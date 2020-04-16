@@ -32,3 +32,12 @@ class NewPostForm(ModelForm):
     class Meta:
         model = Post
         fields = ['profile_id', 'title', 'text', 'author', 'theme', 'pub_date', 'likes']
+
+
+class PostEditForm(ModelForm):
+    title = forms.CharField(max_length=100)
+    text = forms.CharField(max_length=2000, widget=forms.Textarea)
+
+    class Meta:
+        model = Post
+        fields = ['title', 'text', 'pub_date']

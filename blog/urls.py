@@ -29,7 +29,8 @@ urlpatterns = [
     path('users/', views.users, name='users'),
     path('author/<str:username>', views.u_details, name='author'),
     path('posts/<str:post_id>', views.p_details, name='post'),
-    path('edit', views.edit, name="edit"),
+    path('author/edit', views.edit, name="edit"),
+    path('posts/<int:post_id>/edit', views.post_edit, name='post_edit'),
     path('new_post/', views.new_post, name='new_post'),
 
     path('login/', vw.LoginView.as_view(), name='login'),

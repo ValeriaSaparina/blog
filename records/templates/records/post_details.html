@@ -7,12 +7,15 @@
               <div class="card-body" style="box-shadow: 0 0 5px;">
                   <small>{{ post.pub_date }}</small>
                   <small><a href="{% url 'author' author.id%}">{{ author.nickname }}</a></small>
+                  <small>{{ post.likes }} likes</small>
                   <h1 class="card-title">{{ post.title }}</h1>
                   <p class="card-text">{{ post.text }}</p>
                   {% if flag %}
-                    <button class="btn btn-primary">Редактировать</button>
+                    <a href="{% url 'post_edit' post.id %}"><button class="btn btn-primary" style="margin-left: 85%">Редактировать</button></a>
                   {% else %}
-                    <button class="btn btn-primary" type="submit">Нравится</button>
+                    <form method="POST">{% csrf_token %}
+                        <button class="btn btn-primary" type="submit" style="margin-left: 88%">Нравится</button>
+                    </form>
                   {% endif %}
               </div>
             </div>
