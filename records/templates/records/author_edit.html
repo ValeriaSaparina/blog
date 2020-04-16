@@ -7,7 +7,7 @@
             <ul class="list-group">
                 <input class="form-control list-group-item" value="{{ info.nickname }}"
                        style="color: black;" name="nickname">
-                <p class="list-group-item" style="text-align: left">E-mail: {{ request.user.username}}</p>
+                <p class="list-group-item" style="text-align: left">E-mail: {{ request.user.email}}</p>
                 <input class="form-control list-group-item" value="{{ info.about }}" name="about">
                 <li class="list-group-item"><input type="submit" class="btn btn-primary"
                                                    style="width: 50%; margin-left: 50%" value="Сохранить"></li>

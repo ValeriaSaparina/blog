@@ -1,6 +1,11 @@
 {% extends 'records/base.html' %}
 {% block content %}
 <div class="p-x-1 p-y-3" style="width: 20%; margin: 0 auto;">
+    {% if flag %}
+    <div class="alert alert-danger" role="alert">
+      Проверьте выполнение всех условий
+    </div>
+  {% endif %}
   <form class="card card-block m-x-auto bg-faded form-width form" method="post">
   {% csrf_token %}
     <legend class="m-b-1 text-xs-center">Регистрация</legend>

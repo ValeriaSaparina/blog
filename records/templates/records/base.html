@@ -7,12 +7,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
               integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
                 integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                 integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <style>
             #footer {
@@ -46,7 +49,9 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'new_post' %}">Добавить запись</a>
                   </li>
+                    </ul>
                         <div class="dropdown" style="position:absolute; right: 3%">
+
                           <button class="btn btn-secondary dropdown-toggle bg-dark" type="button"
                                   id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ request.user.username }}
@@ -61,20 +66,56 @@
                             <a class="nav-link" href="/login" style="color: white">Войти</a>
                         </li>
                     {% endif %}
+<!--                    <div style="margin-left: 57%" id="search">-->
+<!--                        <form class="form-inline my-2 my-lg-0" action="{% url 'main' %}"> {% csrf_token %}-->
+<!--                          <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">-->
+<!--                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                  <script>-->
+<!--                      function getCookie(name) {-->
+<!--                          var cookieValue = null;-->
+<!--                          if(document.cookie && document.cookie != '') {-->
+<!--                              var cookies = document.cookie.split(';');-->
+<!--                              for(var i = 0; i < cookies.length; i++) {-->
+<!--                                  var cookie = jQuery.trim(cookies[i]);-->
+<!--                                  if(cookie.substring(0, name.length + 1) == (name + '=')) {-->
+<!--                                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));-->
+<!--                                      break;-->
+<!--                                  }-->
+<!--                              }-->
+<!--                          }-->
+<!--                          return cookieValue;-->
+<!--                      }-->
 
+<!--                      $.ajaxSetup({-->
+<!--                          global: true,-->
+<!--                          beforeSend: function(xhr, settings) {-->
+<!--                              if(!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {-->
+<!--                                  xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));-->
+<!--                                  xhr.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded; charset=UTF-8');-->
+<!--                              }-->
+<!--                          },-->
+<!--                          timeout: 8000-->
+<!--                      });-->
 
-                </ul>
+<!--                      $('#search input[name="q"]').autocomplete({-->
+<!--                          'source': '{% url "main" %}',-->
+<!--                          'minLength': 2,-->
+<!--                          'appendTo': "#search"-->
+<!--                  });-->
+              </script>
               </div>
             </nav>
         </header>
 
-            <!--content-->
+
             {% block content %}{% endblock %}
 
 
         <footer class="container fixed-bottom" id="footer">
             <p class="float-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2020 Sugar fest</p>
+            <p>&copy; 2020 </p>
         </footer>
 
     </body>
