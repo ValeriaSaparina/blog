@@ -15,15 +15,21 @@
           {{ field.label_tag }}<br>
           {{ field }}<br>
 
-          {% if field.help_text %}
-          {{ field.help_text }}
-          {% endif %}
-          {% for error in field.errors %}
-          <p>{{ error }}</p>
-          {% endfor %}
+<!--          {% if field.help_text %}-->
+<!--          {{ field.help_text }}-->
+<!--          {% endif %}-->
+<!--          {% for error in field.errors %}-->
+<!--          <p>{{ error }}</p>-->
+<!--          {% endfor %}-->
         </p>
     </div>
     {% endfor %}
+      <ul>
+          <li>Не используйте личную информацию для пароля</li>
+          <li>Ваш пароль должен быть не менее 8 символов</li>
+          <li>Ваш пароль не должен содержать только цифры</li>
+          <li>В Вашем пароле должны быть заглавные и строчные буквы</li>
+      </ul>
   <button class="btn btn-block btn-primary" type="submit">Отправить</button>
   </form>
 </div>
