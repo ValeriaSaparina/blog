@@ -7,6 +7,8 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=20)
     count_posts = models.IntegerField(default=0)
     about = models.CharField(max_length=500, default="")
+    my_favorites = models.CharField(max_length=1000, default="")
+    count_favorites = models.IntegerField(default=0)
 
 
 class Post(models.Model):

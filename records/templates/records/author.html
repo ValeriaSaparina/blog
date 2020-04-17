@@ -9,12 +9,15 @@
                 <p class="list-group-item" style="text-align: left">E-mail: {{ request.user.email}}</p>
             {% endif %}
             <li class="list-group-item" style="text-align: left">Обо мне: {{ info.about  }}</li>
+            <li class="list-group-item" style="text-align: left">В избранном у {{ info.count_favorites }} читателей</li>
             {% if flag %}
                 <li class="list-group-item"><a href="{% url 'edit'%}" class="btn btn-primary"
                                            style="width: 50%; margin-left: 50%">Редактировать</a></li>
             {% else %}
-                <li class="list-group-item"><a href="{% url 'main'%}" class="btn btn-primary"
-                                               style="width: 50%; margin-left: 50%">В избранное</a></li>
+                <form method="POST">{% csrf_token %}
+                    <li class="list-group-item"><button class="btn btn-primary"
+                                               style="width: 50%; margin-left: 50%">В избранное</button></li>
+                </form>
             {% endif %}
         </ul>
     </div>

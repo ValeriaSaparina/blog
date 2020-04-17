@@ -7,6 +7,13 @@ from .forms import NewPostForm
 from .models import User, Post, Profile
 
 
+def get_my_fav(user_id):
+    user = Profile.objects.get(pk=user_id)
+    fav = user.my_favorites
+    fav_users = fav.split(';')
+    return fav_users
+
+
 def users(request):
     user_list = User.objects.all()
     context = {'user_list': user_list}
@@ -37,7 +44,7 @@ def signup(request):
             username = form.cleaned_data.get('username')
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            profile = Profile(user=user, nickname=username, count_posts=0, about=' ')
+            profile = Profile(user=user, nickname=username, count_posts=0, about='', my_favorites='', count_favorites=0)
             profile.save()
         else:
             flag = True
@@ -88,12 +95,11 @@ def new_post(request):
 
 def u_details(request, username):
     user_id = request.user.id
-    print('username: ', username)
     if user_id == int(username):
         flag = True
     else:
         flag = False
-    user_id = int(username)
+        user_id = int(username)
     s_list = []
     posts_list = Post.objects.filter(profile_id=user_id)
     for p in posts_list:
@@ -101,21 +107,44 @@ def u_details(request, username):
         s = s[:444] + '...'
         s_list.append(s)
     info = Profile.objects.get(pk=user_id)
-    print(info.about)
     data = zip(posts_list, s_list)
+    if request.method == 'POST':
+        user = Profile.objects.get(pk=user_id)
+        my_profile = Profile.objects.get(pk=request.user.id)
+        my_fav = get_my_fav(request.user.id)
+        flag_fav = True
+        for f in my_fav:
+            if f == str(user_id):
+                flag_fav = True
+                break
+            else:
+                flag_fav = False
+        if flag_fav:
+            user.count_favorites = user.count_favorites - 1
+            user.save()
+            my_fav.remove(str(username))
+            my_profile.my_favorites = ''.join(my_fav)
+            my_profile.save()
+        else:
+            user.count_favorites = user.count_favorites + 1
+            user.save()
+            my_profile.my_favorites = my_profile.my_favorites + username + ';'
+            my_profile.save()
+    user_id = int(username)
     return render(request, 'records/author.html', {'info': info, 'flag': flag, 'user_id': user_id, 'data': data,
                   'posts_list': posts_list})
 
 
 def edit(request):
     info = Profile.objects.get(pk=request.user.id)
-    print(request.method)
     if request.method == 'POST':
         form = AuthorForm(request.POST)
         if form.is_valid():
             form.save()
         nickname = form.cleaned_data.get('nickname')
         about = form.cleaned_data.get('about')
+        if about is None:
+            about = ""
         profile = Profile.objects.get(pk=request.user.id)
         user = User.objects.get(pk=request.user.id)
         user.username = nickname
