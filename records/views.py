@@ -51,16 +51,15 @@ def signup(request):
 
 def p_details(request, post_id):
     post = Post.objects.get(pk=post_id)
-    profile_id = post.profile_id.id
-    author = get_object_or_404(Profile, pk=profile_id)
     if request.method == "POST":
         post.likes = post.likes + 1
         post.save()
+    profile_id = post.profile_id.id
+    author = get_object_or_404(Profile, pk=profile_id)
     if profile_id == request.user.id:
         flag = True
     else:
         flag = False
-    print(post.likes)
     return render(request, 'records/post_details.html', {'post': post, 'author': author, 'flag': flag})
 
 
@@ -89,6 +88,7 @@ def new_post(request):
 
 def u_details(request, username):
     user_id = request.user.id
+    print('username: ', username)
     if user_id == int(username):
         flag = True
     else:
