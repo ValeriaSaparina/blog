@@ -9,8 +9,8 @@ from .models import User, Post, Profile
 
 def get_my_fav(user_id):
     user = Profile.objects.get(pk=user_id)
-    fav = user.my_favorites
-    fav_users = fav.split(';')
+    favorites = user.my_favorites
+    fav_users = favorites.split(';')
     return fav_users
 
 
@@ -25,10 +25,10 @@ def main(request):
     posts_list = Post.objects.all()
     posts = []
     for p in posts_list:
-        posts.append(Post.objects.get(pk=len(posts_list)-p.id+1))
+        posts.append(Post.objects.get(pk=len(posts_list) - p.id + 1))
     s_list = []
     for p in posts_list:
-        a = Post.objects.get(pk=len(posts_list)-p.id+1)
+        a = Post.objects.get(pk=len(posts_list) - p.id + 1)
         s = a.text
         s = s[:444] + '...'
         s_list.append(s)
@@ -57,6 +57,7 @@ def signup(request):
 
 
 def p_details(request, post_id):
+    print(post_id)
     post = Post.objects.get(pk=post_id)
     if request.method == "POST":
         post.likes = post.likes + 1
@@ -95,11 +96,18 @@ def new_post(request):
 
 def u_details(request, username):
     user_id = request.user.id
+    my_fav = get_my_fav(request.user.id)
     if user_id == int(username):
         flag = True
     else:
         flag = False
         user_id = int(username)
+    for f in my_fav:
+        if f == str(user_id):
+            flag_fav = True
+            break
+        else:
+            flag_fav = False
     s_list = []
     posts_list = Post.objects.filter(profile_id=user_id)
     for p in posts_list:
@@ -111,14 +119,6 @@ def u_details(request, username):
     if request.method == 'POST':
         user = Profile.objects.get(pk=user_id)
         my_profile = Profile.objects.get(pk=request.user.id)
-        my_fav = get_my_fav(request.user.id)
-        flag_fav = True
-        for f in my_fav:
-            if f == str(user_id):
-                flag_fav = True
-                break
-            else:
-                flag_fav = False
         if flag_fav:
             user.count_favorites = user.count_favorites - 1
             user.save()
@@ -130,9 +130,10 @@ def u_details(request, username):
             user.save()
             my_profile.my_favorites = my_profile.my_favorites + username + ';'
             my_profile.save()
+    print(flag_fav)
     user_id = int(username)
     return render(request, 'records/author.html', {'info': info, 'flag': flag, 'user_id': user_id, 'data': data,
-                  'posts_list': posts_list})
+                                                   'posts_list': posts_list, 'flag_fav': flag_fav})
 
 
 def edit(request):
@@ -174,3 +175,15 @@ def post_edit(request, post_id):
     else:
         form = PostEditForm()
         return render(request, 'records/post_edit.html', {'form': form, 'post': post})
+
+
+def fav(request):
+    my_fav = get_my_fav(request.user.id)
+    my_fav.pop()
+    fav_info = []
+    for f in my_fav:
+        print('f: ', f, '; type: ', type(f))
+        user = User.objects.get(pk=f)
+        print(user.username)
+        fav_info.append(user)
+    return render(request, 'records/fav.html', {'fav_info': fav_info})

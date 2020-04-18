@@ -15,8 +15,13 @@
                                            style="width: 50%; margin-left: 50%">Редактировать</a></li>
             {% else %}
                 <form method="POST">{% csrf_token %}
-                    <li class="list-group-item"><button class="btn btn-primary"
-                                               style="width: 50%; margin-left: 50%">В избранное</button></li>
+                    {% if flag_fav %}
+                        <li class="list-group-item"><button class="btn btn-primary"
+                                                   style="width: 50%; margin-left: 50%">Убрать</button></li>
+                    {% else %}
+                        <li class="list-group-item"><button class="btn btn-primary"
+                                                   style="width: 50%; margin-left: 50%">В избранное</button></li>
+                    {% endif %}
                 </form>
             {% endif %}
         </ul>

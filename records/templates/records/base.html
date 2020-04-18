@@ -58,7 +58,7 @@
                           </button>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{% url 'author' request.user.id %}">Профиль</a>
-                            <a class="dropdown-item" href="#">Мои избранные</a>
+                            <a class="dropdown-item" href="{% url 'fav' %}">Мои избранные</a>
                             <a class="dropdown-item" href="/logout">Выйти</a>
                           </div>
                         </div>

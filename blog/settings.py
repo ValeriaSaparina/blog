@@ -24,7 +24,7 @@ SECRET_KEY = ')3av2wu2_d^qa4md9isdz2ul5*jdjn947-i_bf!&g4q=in)!+_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['omblog.fun']
 
 # Application definition
 
