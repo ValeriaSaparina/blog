@@ -11,7 +11,12 @@
                   <h1 class="card-title">{{ post.title }}</h1>
                   <p class="card-text">{{ post.text }}</p>
                   {% if flag %}
-                    <a href="{% url 'post_edit' post.id %}"><button class="btn btn-primary" style="margin-left: 85%">Редактировать</button></a>
+                  <div style="margin-left: 85%">
+                    <a href="{% url 'post_edit' post.id %}"><button class="btn btn-primary">Редактировать</button></a>
+<!--                    <form method="POST" style="margin-top: 1%">{% csrf_token %}-->
+<!--                        <a href="{% url 'main' %}"><button class="btn btn-primary">Удалить</button></a>-->
+<!--                    </form>-->
+                  </div>
                   {% else %}
                     <form method="POST">{% csrf_token %}
                         <button class="btn btn-primary" type="submit" style="margin-left: 88%">Нравится</button>

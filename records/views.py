@@ -59,15 +59,21 @@ def signup(request):
 def p_details(request, post_id):
     print(post_id)
     post = Post.objects.get(pk=post_id)
-    if request.method == "POST":
-        post.likes = post.likes + 1
-        post.save()
     profile_id = post.profile_id.id
     author = get_object_or_404(Profile, pk=profile_id)
     if profile_id == request.user.id:
         flag = True
     else:
         flag = False
+    # if request.method == "POST":
+    #     if flag:
+    #         post.delete()
+    #         return render(request, 'records/main.html')
+    #     else:
+    #         post.likes = post.likes + 1
+    #         post.save()
+    #         return render(request, 'records/post_details.html', {'post': post, 'author': author, 'flag': flag})
+    # TODO: ошибка с БД, продолжает id дальше
     return render(request, 'records/post_details.html', {'post': post, 'author': author, 'flag': flag})
 
 
